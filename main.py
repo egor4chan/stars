@@ -47,9 +47,10 @@ def generate_invoice_route():
 
 @app.route('/payment-success', methods=['POST'])
 def payment_success():
-    data = request.json
-    user_id = data.get('user_id')
-    payment_info = data.get('payment_info')
+    req = request.get_json(force=True, silent=True)
+    print('REQUEST: ', req)
+    user_id = req['user_id']
+    payment_info = req['payment_info']
 
     if user_id and payment_info:
         paid_users[user_id] = payment_info
