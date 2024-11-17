@@ -22,7 +22,7 @@ function pay() {
 
     httpRequest.onprogress = function(event) { // запускается периодически
         var link = httpRequest.response // получаем return из функции flask
-        window.location.href = link
+        //window.location.href = link
         //check_payment()
 
         window.Telegram.WebApp.openInvoice(link, async (status) => {
