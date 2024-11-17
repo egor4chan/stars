@@ -42,8 +42,8 @@ def generate_invoice():
 @app.route('/generate-invoice', methods=['POST'])
 def generate_invoice_route():
     invoice_data = generate_invoice()
-    print(invoice_data)
-    return jsonify(invoice_data)
+    link = invoice_data['result']
+    return link
 
 @app.route('/payment-success', methods=['POST'])
 def payment_success():

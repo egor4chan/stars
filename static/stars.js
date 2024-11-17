@@ -4,9 +4,11 @@ function pay() {
     var data = JSON.stringify({'operation': 'pay'});
     httpRequest.send(data);
     httpRequest.onload = function() {
-        alert('responce: ', httpRequest.response)
-        alert('onload: ', httpRequest.onload)
-        alert('status: ', httpRequest.status)
-        window.location.href = httpRequest.response
+        console.log('httpreq', httpRequest)
+        console.log('responce', httpRequest.response)
     }
+    httpRequest.onprogress = function(event) { // запускается периодически
+        var link = httpRequest.response
+        window.location.href = link
+      };
 }
