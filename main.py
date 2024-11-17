@@ -54,9 +54,10 @@ def payment_success():
     if user_id and payment_info:
         paid_users[user_id] = payment_info
 
-        return 'success'
+        success = jsonify({'status': 'success', 'message': 'Payment received!'})
+        return success['status']
     else:
-        return 'error'
+        return jsonify({'status': 'error', 'message': 'Invalid payment data'}), 400
 
 if __name__ == '__main__':
     app.run(debug=True, host='0.0.0.0')
