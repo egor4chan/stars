@@ -14,6 +14,13 @@ function check_payment() {
     
 }
 
+function checkPaymentSuccess(paymentdata) {
+    httpRequest = new XMLHttpRequest();
+    httpRequest.open('POST', '/payment-success');
+    var data = JSON.stringify(paymentdata);
+    httpRequest.send(data);
+}
+
 function pay() {
     httpRequest = new XMLHttpRequest();
     httpRequest.open('POST', '/generate-invoice');
@@ -28,6 +35,10 @@ function pay() {
         window.Telegram.WebApp.openInvoice(link, async (status) => {
           if (status == 'paid') {
             alert('Successful payment!')
+            await this.checkPaymentSuccess({
+              user_id: window.Telegram.WebApp.initDataUnsafe.user.id,
+              payment_info: { link }
+            })
           }
           else {
             alert('Cancelled payment.')
