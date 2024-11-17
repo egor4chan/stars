@@ -17,7 +17,7 @@ function check_payment() {
 function checkPaymentSuccess(paymentdata) {
     httpRequest = new XMLHttpRequest();
     httpRequest.open('POST', '/payment-success');
-    var data = JSON.stringify(paymentdata);
+    var data = paymentdata;
     httpRequest.send(data);
 }
 
