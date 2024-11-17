@@ -21,7 +21,7 @@ def generate_invoice():
     description = "Instant ranking up"
     payload = "{}"
     currency = "XTR"  # Telegram Stars
-    prices = [{'label': 'Boost', 'amount': 1000}]
+    prices = [{'label': 'Boost', 'amount': 1}]
 
     params = {
         'title': title,
@@ -54,9 +54,9 @@ def payment_success():
     if user_id and payment_info:
         paid_users[user_id] = payment_info
 
-        return jsonify({'status': 'success', 'message': 'Payment received!'}), 200
+        return 'success'
     else:
-        return jsonify({'status': 'error', 'message': 'Invalid payment data'}), 400
+        return 'error'
 
 if __name__ == '__main__':
     app.run(debug=True, host='0.0.0.0')

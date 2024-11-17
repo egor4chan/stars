@@ -1,14 +1,24 @@
+function check_payment() {
+    httpRequest = new XMLHttpRequest();
+    httpRequest.open('POST', '/payment-success');
+    var data = JSON.stringify({'operation': 'pay'});
+    httpRequest.send(data);
+
+    httpRequest.onprogress = function(event) { // запускается периодически
+        var data = httpRequest.response // получаем return из функции flask
+        alert(data)
+      };
+}
+
 function pay() {
     httpRequest = new XMLHttpRequest();
     httpRequest.open('POST', '/generate-invoice');
     var data = JSON.stringify({'operation': 'pay'});
     httpRequest.send(data);
-    httpRequest.onload = function() {
-        console.log('httpreq', httpRequest)
-        console.log('responce', httpRequest.response)
-    }
+
     httpRequest.onprogress = function(event) { // запускается периодически
-        var link = httpRequest.response
+        var link = httpRequest.response // получаем return из функции flask
         window.location.href = link
+        check_payment()
       };
 }
