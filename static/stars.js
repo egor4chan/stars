@@ -4,6 +4,9 @@ function pay() {
     var data = JSON.stringify({'operation': 'pay'});
     httpRequest.send(data);
     httpRequest.onload = function() {
-        window.location.href = httpRequest.responce
+        alert('responce: ', httpRequest.response)
+        alert('onload: ', httpRequest.onload)
+        alert('status: ', httpRequest.status)
+        window.location.href = httpRequest.response
     }
 }
