@@ -5,7 +5,7 @@ from telegram import Bot
 
 app = Flask(__name__)
 
-TELEGRAM_TOKEN = "8055937809:AAFPj39LWDxhz-tYAb0fEijg6OHDy0Db5Wc"
+TELEGRAM_TOKEN = "8004244245:AAFgYc4wuS8sZopKZ3QoPTg6rDmXHVCcbv0"
 API_URL = f'https://api.telegram.org/bot{TELEGRAM_TOKEN}/'
 
 bot = Bot(token=TELEGRAM_TOKEN)
@@ -17,11 +17,11 @@ def start():
     return render_template('index.html')
 
 def generate_invoice():
-    title = "Test Product"
-    description = "Test Description"
+    title = "Boost"
+    description = "Instant ranking up"
     payload = "{}"
     currency = "XTR"  # Telegram Stars
-    prices = [{'label': 'Test Product', 'amount': 1}]
+    prices = [{'label': 'Boost', 'amount': 1000}]
 
     params = {
         'title': title,
@@ -42,7 +42,7 @@ def generate_invoice():
 @app.route('/generate-invoice', methods=['POST'])
 def generate_invoice_route():
     invoice_data = generate_invoice()
-
+    print(invoice_data)
     return jsonify(invoice_data)
 
 @app.route('/payment-success', methods=['POST'])
