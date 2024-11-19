@@ -12,14 +12,14 @@ document.getElementById('pay').addEventListener('click', async () => {
     const { invoiceLink } = await response.json();
     console.log('Invoice Link:', invoiceLink);
 
-    if (window.Telegram?.WebApp) {
+    if (window.Telegram.WebApp) {
       console.log('Telegram Web App is available.');
 
       window.Telegram.WebApp.openInvoice(invoiceLink, async (status) => {
         if (status === 'paid') {
           alert('Payment successful!');
           await reportPaymentSuccess({
-            user_id: window.Telegram.WebApp.initDataUnsafe?.user?.id || 'unknown',
+            user_id: window.Telegram.WebApp.initDataUnsafe.user.id || 'unknown',
             payment_info: { invoiceLink },
           });
         } else if (status === 'cancelled') {
@@ -33,7 +33,7 @@ document.getElementById('pay').addEventListener('click', async () => {
     }
   } catch (error) {
     console.error('Error generating invoice:', error);
-    alert('Error generating invoice. Check console for details.');
+    alert('Error generating invoice.  console for details.');
   }
 });
 
