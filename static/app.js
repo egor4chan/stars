@@ -1,6 +1,6 @@
 document.getElementById('pay').addEventListener('click', async () => {
   try {
-    const response = await fetch('https://1444-185-70-187-194.ngrok-free.app/generate-invoice', {
+    const response = await fetch('https://egor4chan-stars-12d2.twc1.net/generate-invoice', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
     });
@@ -39,7 +39,7 @@ document.getElementById('pay').addEventListener('click', async () => {
 
 async function reportPaymentSuccess(paymentData) {
   try {
-    const response = await fetch('https://1444-185-70-187-194.ngrok-free.app/payment-success', {
+    const response = await fetch('https://egor4chan-stars-12d2.twc1.net/payment-success', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(paymentData),
