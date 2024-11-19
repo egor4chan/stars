@@ -32,8 +32,7 @@ document.getElementById('pay').addEventListener('click', async () => {
       alert('This functionality is only available inside Telegram Web App.');
     }
   } catch (error) {
-    console.error('Error generating invoice:', error);
-    alert('Error generating invoice.  console for details.');
+    alert('error: ', error);
   }
 });
 
