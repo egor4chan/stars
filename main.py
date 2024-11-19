@@ -2,10 +2,8 @@ import requests
 from flask import Flask, jsonify, request, render_template
 from telegram import Bot
 
-
 app = Flask(__name__)
-
-TELEGRAM_TOKEN = "8004244245:AAFgYc4wuS8sZopKZ3QoPTg6rDmXHVCcbv0"
+TELEGRAM_TOKEN = "7863347895:AAELfBLa5qIcPq8t5im_WG8-UeEcFA_cA2Q"
 API_URL = f'https://api.telegram.org/bot{TELEGRAM_TOKEN}/'
 
 bot = Bot(token=TELEGRAM_TOKEN)
@@ -17,11 +15,11 @@ def start():
     return render_template('index.html')
 
 def generate_invoice():
-    title = "Boost"
-    description = "Instant ranking up"
+    title = "Test Product"
+    description = "Test Description"
     payload = "{}"
     currency = "XTR"  # Telegram Stars
-    prices = [{'label': 'Boost', 'amount': 1}]
+    prices = [{'label': 'Test Product', 'amount': 1}]
 
     params = {
         'title': title,
@@ -42,23 +40,21 @@ def generate_invoice():
 @app.route('/generate-invoice', methods=['POST'])
 def generate_invoice_route():
     invoice_data = generate_invoice()
-    link = invoice_data['result']
-    return link
+
+    return jsonify(invoice_data)
 
 @app.route('/payment-success', methods=['POST'])
 def payment_success():
-    req = request.get_json(force=True, silent=True)
-    print('REQUEST: ', req)
-    user_id = req['user_id']
-    payment_info = req['payment_info']
+    data = request.json
+    user_id = data.get('user_id')
+    payment_info = data.get('payment_info')
 
     if user_id and payment_info:
         paid_users[user_id] = payment_info
 
-        success = jsonify({'status': 'success', 'message': 'Payment received!'})
-        return success['status']
+        return jsonify({'status': 'success', 'message': 'Payment received!'}), 200
     else:
         return jsonify({'status': 'error', 'message': 'Invalid payment data'}), 400
 
 if __name__ == '__main__':
-    app.run(debug=True, host='0.0.0.0')
+    app.run(debug=True)
