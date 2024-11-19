@@ -3,7 +3,7 @@ from flask import Flask, jsonify, request, render_template
 from telegram import Bot
 
 app = Flask(__name__)
-TELEGRAM_TOKEN = "7863347895:AAELfBLa5qIcPq8t5im_WG8-UeEcFA_cA2Q"
+TELEGRAM_TOKEN = "8004244245:AAFgYc4wuS8sZopKZ3QoPTg6rDmXHVCcbv0"
 API_URL = f'https://api.telegram.org/bot{TELEGRAM_TOKEN}/'
 
 bot = Bot(token=TELEGRAM_TOKEN)
