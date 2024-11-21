@@ -30,18 +30,19 @@ def generate_invoice():
     }
 
     response = requests.post(API_URL + 'createInvoiceLink', json=params)
+    print(response.json())
 
     if response.status_code == 200:
         res = response.json()
-        return response.json()
+        return res["result"]
     else:
         return {'error': 'Failed to create invoice'}
 
-@app.route('/generate-invoice', methods=['POST'])
+@app.route('/generate-invoice', methods=['GET'])
 def generate_invoice_route():
     invoice_data = generate_invoice()
 
-    return jsonify(invoice_data)
+    return invoice_data
 
 @app.route('/payment-success', methods=['POST'])
 def payment_success():
