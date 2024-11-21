@@ -3,13 +3,13 @@ document.getElementById('pay').addEventListener('click', () => {
     const httpRequest = new XMLHttpRequest();
     httpRequest.open('GET', 'https://egor4chan-stars-12d2.twc1.net/generate-invoice', true);
 
-    httpRequest.onprogress = async function () {
+    httpRequest.onprogress = function () {
       if (httpRequest.status >= 200 && httpRequest.status < 300) {
         const invoiceLink = httpRequest.response;
 
         if (window.Telegram && window.Telegram.WebApp) {
           
-          await window.Telegram.WebApp.openInvoice(invoiceLink, (status) => {
+          window.Telegram.WebApp.openInvoice(invoiceLink, (status) => {
             if (status === 'paid') {
               alert('Payment successful!');
             } else if (status === 'cancelled') {
