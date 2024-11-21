@@ -4,7 +4,7 @@ document.getElementById('pay').addEventListener('click', async () => {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
     });
-
+    console.log(response);
     if (!response.ok) {
       alert('Error 10')
       throw new Error('Error generating invoice.');
