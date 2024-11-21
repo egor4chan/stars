@@ -1,34 +1,40 @@
-document.getElementById('payButton').addEventListener('click', async () => {
+document.getElementById('pay').addEventListener('click', () => {
   try {
-    httpRequest = new XMLHttpRequest();
-    httpRequest.open('GET', 'https://egor4chan-stars-12d2.twc1.net/generate-invoice');
-    var responseLink;
-    await httpRequest.send();
-    httpRequest.onprogress = function (event) {
-      console.log('Event: ', event["currentTarget"]["response"])
-      responseLink = event.response;
-    }
+    const httpRequest = new XMLHttpRequest();
+    httpRequest.open('GET', 'https://egor4chan-stars-12d2.twc1.net/generate-invoice', true);
 
-    const invoiceLink = responseLink
+    httpRequest.onload = function () {
+      if (httpRequest.status >= 200 && httpRequest.status < 300) {
+        const invoiceLink = httpRequest.response;
 
-    if (window.Telegram || window.Telegram.WebApp) {
-      console.log('Telegram Web App is available.');
+        if (window.Telegram && window.Telegram.WebApp) {
+          console.log('Telegram Web App is available.');
 
-      window.Telegram.WebApp.openInvoice(invoiceLink, async (status) => {
-        if (status === 'paid') {
-          alert('Payment successful!');
-        } else if (status === 'cancelled') {
-          alert('Payment cancelled.');
+          window.Telegram.WebApp.openInvoice(invoiceLink, (status) => {
+            if (status === 'paid') {
+              alert('Payment successful!');
+            } else if (status === 'cancelled') {
+              alert('Payment cancelled.');
+            } else {
+              alert('Payment failed or not completed.');
+            }
+          });
         } else {
-          alert('Payment failed or not completed.');
+          alert('This functionality is only available inside Telegram Web App.');
         }
-      });
-    } else {
-      alert('This functionality is only available inside Telegram Web App.');
-    }
+      } else {
+        throw new Error(`Request failed with status ${httpRequest.status}`);
+      }
+    };
+
+    httpRequest.onerror = function () {
+      console.error('Error during the request.');
+      alert('Error generating invoice. Check console for details.');
+    };
+
+    httpRequest.send();
   } catch (error) {
     console.error('Error generating invoice:', error);
     alert('Error generating invoice. Check console for details.');
   }
 });
-
